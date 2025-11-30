@@ -1,8 +1,5 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import {
-  Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator
-} from "../components/ui/breadcrumb";
 import { ImageWithFallback } from "../components/ui/ImageWithFallback";
 import { Badge } from "../components/ui/badge";
 import { Button } from "../components/ui/button";
@@ -17,6 +14,7 @@ import { useAppDispatch, useAppSelector } from "../redux/hooks";
 import { addToCart } from "../redux/features/cartSlice";
 import { toggleWishlist } from "../redux/features/wishlistSlice";
 import type { CartItem, Product } from "../model";
+import { PageHero } from "../components";
 
 const oneOP: Product = {
     id: 1,
@@ -113,19 +111,17 @@ export default function SingleProduct() {
 
   return (
     <div className="min-h-screen flex flex-col">
-      <section className="bg-card border-b border-border">
-        <div className="container mx-auto px-4 lg:px-8 py-4">
-          <Breadcrumb>
-            <BreadcrumbList>
-              <BreadcrumbItem><BreadcrumbLink href="/">Home</BreadcrumbLink></BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbLink href="/products">Products</BreadcrumbLink></BreadcrumbItem>
-              <BreadcrumbSeparator />
-              <BreadcrumbItem><BreadcrumbPage>{product.name}</BreadcrumbPage></BreadcrumbItem>
-            </BreadcrumbList>
-          </Breadcrumb>
-        </div>
-      </section>
+      <PageHero
+        title={""}
+        description={""}
+        breadcrumbs={[
+          { label: "Products", href: "/products" },
+          { label: product.mainCategory, href: `/category/${product.mainCategory}` },
+          { label: product.name || "" },
+        ]}
+        height="10vh"
+        showGradient
+      />      
 
       <section className="py-12 bg-background">
         <div className="container mx-auto px-4 lg:px-8">
